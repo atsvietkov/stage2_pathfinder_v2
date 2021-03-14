@@ -2,6 +2,9 @@
 
 unsigned int mx_atoui(const char *str) {
     unsigned int result = 0;
+    if (!str) {
+        return 0;
+    }
     for (int i = 0; str[i] != '\0'; i++) {
         if(mx_isdigit(str[i])) {
             result *= 10;
