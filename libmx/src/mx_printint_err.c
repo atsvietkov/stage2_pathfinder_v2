@@ -18,8 +18,8 @@ void mx_printint_err(int n) {
         }
 
         if (n == 0) {
-            // mx_printchar(0+48);
-            write(1, 0+48, 1);
+            mx_printchar_err(0+48);
+            // write(2, "0", 1);
         }
         else {
             int arr[len];
@@ -28,12 +28,11 @@ void mx_printint_err(int n) {
                 n /= 10;
             }
             if (negative == 1) {
-                // mx_printchar('-');
-                write(2, '-', 1);
+                mx_printchar_err('-');
+                // write(2, "-", 1);
             }
             for (int i = len-1; i >= 0; i--) {
-                // mx_printchar(arr[i]+48);
-                write(2, arr[i]+48, 1);
+                mx_printchar_err(arr[i]+48);
             }
         }
     }

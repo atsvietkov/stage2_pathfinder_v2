@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     }
     else if (status_code == 5) {
         mx_print_err("error: line ");
-        // mx_print_err(line_counter);
+        mx_printint_err(line_counter);
         mx_print_err(" is not valid\n");
     }
 
