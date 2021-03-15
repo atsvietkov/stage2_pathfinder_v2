@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     if (status_code == 0) {
         
         char *file_cpy = mx_strdup(file);
-        for ( line_counter = 2; file_cpy; line_counter++) {
+        for (line_counter = 2 ; ; line_counter++) {
             char *line = mx_parse(file_cpy, '\n');
             // mx_printstrn(line);
             // mx_printstrn("--");
@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
             char *buf1 = mx_parse(line, '-');
             char *buf2 = mx_parse(line, ',');
             unsigned int buf3 = mx_atoui(mx_parse(line, '\n'));
+            // mx_printstrn("--");
             // mx_printstrn(buf1);
             // mx_printstrn(buf2);
             // mx_printintn(buf3);
@@ -56,18 +57,17 @@ int main(int argc, char **argv) {
             if(buf1) {
                 mx_strdel(&buf1);
             }
+            // mx_printstrn("1");
             if(buf2) {
                 mx_strdel(&buf2);
             }
-            
-            if (status_code != 0 || 
-                !file_cpy || 
-                mx_strlen(file_cpy) < 1) {
+            mx_printstrn("----");
+            mx_printstrn(file_cpy);
+            if (status_code != 0 || !file_cpy) {
                 break;
             }
         }
     }
-
 
     if (status_code == 1) {
         mx_print_err("usage: ./pathfinder [filename]\n");

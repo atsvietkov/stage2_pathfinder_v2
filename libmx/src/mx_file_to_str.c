@@ -10,12 +10,15 @@ char *mx_file_to_str(const char *file) {
         for ( ; read(fp, &buff, 1); count++);
         close(fp);
         if(count > 0) {
+            count++;
             dst_str = mx_strnew(count);
             fp = open(file, O_RDONLY);
-            for (int i = 0; read(fp, &buff, 1); i++) {
+            int i = 0;
+            for (i = 0; read(fp, &buff, 1); i++) {
                 dst_str[i] = buff;
             }
             close(fp);
+            dst_str[i] = '\0';
             return dst_str;
         }
     }
