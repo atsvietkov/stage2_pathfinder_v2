@@ -36,9 +36,9 @@ int main(int argc, char **argv) {
     }
     // mx_printintn(nodes_q_line);
     if (status_code == 0) {
-        
+        unsigned int lines_in_file = mx_line_amount(file);
         char *file_cpy = mx_strdup(file);
-        for (line_counter = 2 ; ; line_counter++) {
+        for (line_counter = 0; status_code == 0 && line_counter < lines_in_file; line_counter++) {
             char *line = mx_parse(file_cpy, '\n');
             // mx_printstrn(line);
             // mx_printstrn("--");
@@ -53,18 +53,11 @@ int main(int argc, char **argv) {
             // mx_printintn(buf3);
             // mx_printstrn("----");
             status_code = mx_valid_line(buf1, buf2, buf3);
-            // mx_strdel(&line);
             if(buf1) {
                 mx_strdel(&buf1);
             }
-            // mx_printstrn("1");
             if(buf2) {
                 mx_strdel(&buf2);
-            }
-            mx_printstrn("----");
-            mx_printstrn(file_cpy);
-            if (status_code != 0 || !file_cpy) {
-                break;
             }
         }
     }
@@ -87,7 +80,7 @@ int main(int argc, char **argv) {
     }
     else if (status_code == 5) {
         mx_print_err("error: line ");
-        mx_printint_err(line_counter);
+        mx_printint_err(line_counter+1);
         mx_print_err(" is not valid\n");
     }
 
@@ -96,7 +89,7 @@ int main(int argc, char **argv) {
     mx_printstr("Line 1: ");
     mx_printintn(nodes_q_line);
     mx_printstr("line_counter: ");
-    mx_printintn(line_counter);
+    mx_printintn(line_counter+1);
     mx_printstrn("end");
 
     mx_strdel(&file);
