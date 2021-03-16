@@ -1,5 +1,11 @@
 #include "../libmx/inc/libmx.h"
 
+typedef struct s_islands {
+    char *name;
+    unsigned int id;
+    struct s_islands *next;
+}       t_islands;
+
 void mx_print_err(const char *str);
 char *mx_parse(char *str, char delim);
 

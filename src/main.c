@@ -37,22 +37,18 @@ int main(int argc, char **argv) {
     // mx_printintn(nodes_q_line);
     if (status_code == 0) {
         unsigned int lines_in_file = mx_line_amount(file);
+
         char *file_cpy = mx_strdup(file);
         for (line_counter = 0; status_code == 0 && line_counter < lines_in_file; line_counter++) {
             char *line = mx_parse(file_cpy, '\n');
-            // mx_printstrn(line);
-            // mx_printstrn("--");
-            // mx_printstrn(file_cpy);
-            // mx_printstrn("----");
             char *buf1 = mx_parse(line, '-');
             char *buf2 = mx_parse(line, ',');
             unsigned int buf3 = mx_atoui(mx_parse(line, '\n'));
-            // mx_printstrn("--");
-            // mx_printstrn(buf1);
-            // mx_printstrn(buf2);
-            // mx_printintn(buf3);
-            // mx_printstrn("----");
             status_code = mx_valid_line(buf1, buf2, buf3);
+
+            // mx_add_island(buf1, isl_list);
+            // mx_add_island(buf2, isl_list);
+
             if(buf1) {
                 mx_strdel(&buf1);
             }
@@ -83,7 +79,7 @@ int main(int argc, char **argv) {
         mx_printint_err(line_counter+1);
         mx_print_err(" is not valid\n");
     }
-
+    mx_printstrn("--------");
     mx_printstr("Status code: ");
     mx_printintn(status_code);
     mx_printstr("Line 1: ");

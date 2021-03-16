@@ -14,6 +14,9 @@ int mx_valid_line(const char *buffer1, const char *buffer2, unsigned int buffer3
             return 5;
         }
     }
+    if (mx_strcmp(buffer1, buffer2) == 0) {
+        return 5;
+    }
     if (buffer3 < 1) {
         return 5;
     }
