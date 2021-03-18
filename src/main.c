@@ -39,12 +39,19 @@ int main(int argc, char **argv) {
         unsigned int lines_in_file = mx_line_amount(file);
 
         char *file_cpy = mx_strdup(file);
+
+        t_islands *isl_list = mx_create_node_isl(NULL);
+
         for (line_counter = 0; status_code == 0 && line_counter < lines_in_file; line_counter++) {
             char *line = mx_parse(file_cpy, '\n');
             char *buf1 = mx_parse(line, '-');
             char *buf2 = mx_parse(line, ',');
             unsigned int buf3 = mx_atoui(mx_parse(line, '\n'));
             status_code = mx_valid_line(buf1, buf2, buf3);
+            if(status_code == 0) {
+                mx_push_back_isl(buf1, &isl_list);
+                mx_push_back_isl(buf2, &isl_list);
+            }
 
             // mx_add_island(buf1, isl_list);
             // mx_add_island(buf2, isl_list);
