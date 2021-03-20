@@ -2,6 +2,7 @@
 
 #define INT_MAX  2147483647
 #define INT_MIN -2147483648
+#define UINT_MAX 4294967295
 #define UNSIGNED_MAX 4294967295
 
 #include <unistd.h>
