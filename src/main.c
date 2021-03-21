@@ -32,23 +32,30 @@ int main(int argc, char **argv) {
             status_code = 0;
         }
     }
+    char islands[nodes_q_line][ARRAY_WIDTH];
+    int bridges[nodes_q_line][nodes_q_line];
     if (status_code == 0) {
         unsigned int lines_in_file = mx_line_amount(file);
-        char islands[nodes_q_line][64];
+        // char islands[nodes_q_line][ARRAY_DEPTH];
         bool end_of_islands = 0;
         unsigned int islands_line = 0;
-        unsigned int bridges[nodes_q_line][nodes_q_line];
+        // unsigned int bridges[nodes_q_line][nodes_q_line];
     
-        mx_memset(islands, '\0', sizeof(char)*nodes_q_line*64);
-        mx_memset(bridges, 0, sizeof(unsigned int)*nodes_q_line*nodes_q_line);
-        
+        mx_memset(islands, '\0', sizeof(char)*nodes_q_line*ARRAY_WIDTH);
+        // mx_memset(bridges, -1, sizeof(unsigned int)*nodes_q_line*nodes_q_line);
         for (int i = 0; i < nodes_q_line; i++) {
             for (int j = 0; j < nodes_q_line; j++) {
-                mx_printint(bridges[i][j]);
-                mx_printchar('\t');
+                bridges[i][j] = 0;
             }
-            mx_printchar(10);
         }
+        
+        // for (int i = 0; i < nodes_q_line; i++) {
+        //     for (int j = 0; j < nodes_q_line; j++) {
+        //         mx_printint(bridges[i][j]);
+        //         mx_printchar('\t');
+        //     }
+        //     mx_printchar(10);
+        // }
 
         char *file_cpy = mx_strdup(file);
         unsigned int sum_of_bridges = 0;
@@ -77,7 +84,7 @@ int main(int argc, char **argv) {
                     for (int i = 0; /* i < mx_strlen(buf1) */ buf1[i]; i++) {
                         islands[islands_line][i] = buf1[i];
                     }
-                    mx_printstrn(islands[islands_line]);    // debug
+                    // mx_printstrn(islands[islands_line]);    // debug
                     islands_line++;
                     if (islands_line == nodes_q_line) {
                         end_of_islands = 1;
@@ -97,7 +104,7 @@ int main(int argc, char **argv) {
                     for (int i = 0; /* i < mx_strlen(buf2) */ buf2[i]; i++) {
                         islands[islands_line][i] = buf2[i];
                     }
-                    mx_printstrn(islands[islands_line]);    // debug
+                    // mx_printstrn(islands[islands_line]);    // debug
                     islands_line++;
                     if (islands_line == nodes_q_line) {
                         end_of_islands = 1;
@@ -108,9 +115,6 @@ int main(int argc, char **argv) {
             
             unsigned int id_buf1 = 0;
             unsigned int id_buf2 = 0;
-
-            
-
             for (int i = 0; islands[i][0] !=  '\0'; i++) {
                 if (mx_strcmp(buf1, islands[i]) == 0) {
                     id_buf1 = i;
@@ -146,6 +150,26 @@ int main(int argc, char **argv) {
         }
     }
 
+    // pathfinder logic
+    if (status_code == 0) {
+        for (unsigned int start_id = 0; start_id < nodes_q_line - 1; start_id++) {
+            for (unsigned int end_id = start_id + 1; end_id < nodes_q_line; end_id++) {
+                // mx_printstrn("Core");
+                mx_pathfinder_core(nodes_q_line, bridges, islands, start_id, end_id);
+
+                // mx_print_boundary();
+                // mx_printstr("Path: ");
+                // mx_printstr(islands[start_id]);
+                // mx_printstr(" -> ");
+                // mx_printstr(islands[end_id]);
+                // mx_printchar(10);
+                // mx_print_boundary();
+            }
+        }
+    }
+
+
+    // error handling
     if (status_code == 1) {
         mx_print_err("usage: ./pathfinder [filename]\n");
     }
