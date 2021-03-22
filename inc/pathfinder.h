@@ -25,3 +25,7 @@ void mx_pathfinder_core(unsigned int size,
                         char islands[size][ARRAY_WIDTH], 
                         unsigned int id_start, 
                         unsigned int id_end);
+unsigned int mx_connects(unsigned int size, 
+                         int bridges[size][size], 
+                         unsigned int id_now);
+

@@ -134,13 +134,13 @@ int main(int argc, char **argv) {
             mx_strdel(&buf2);
         }
 
-        for (int i = 0; i < nodes_q_line; i++) {
-            for (int j = 0; j < nodes_q_line; j++) {
-                mx_printint(bridges[i][j]);
-                mx_printchar('\t');
-            }
-            mx_printchar(10);
-        }
+        // for (int i = 0; i < nodes_q_line; i++) {
+        //     for (int j = 0; j < nodes_q_line; j++) {
+        //         mx_printint(bridges[i][j]);
+        //         mx_printchar('\t');
+        //     }
+        //     mx_printchar(10);
+        // }
 
         if(status_code == 0 && islands_line < nodes_q_line) {
             status_code = 6;
@@ -200,14 +200,14 @@ int main(int argc, char **argv) {
     else if (status_code == 8) {
         mx_print_err("error : sum of bridges length is too big\n");
     }
-    mx_printstrn("--------");
-    mx_printstr("Status code: ");
-    mx_printintn(status_code);
-    mx_printstr("Line 1: ");
-    mx_printintn(nodes_q_line);
-    mx_printstr("line_counter: ");
-    mx_printintn(line_counter+1);
-    mx_printstrn("end");
+    // mx_printstrn("--------");
+    // mx_printstr("Status code: ");
+    // mx_printintn(status_code);
+    // mx_printstr("Line 1: ");
+    // mx_printintn(nodes_q_line);
+    // mx_printstr("line_counter: ");
+    // mx_printintn(line_counter+1);
+    // mx_printstrn("end");
 
     mx_strdel(&file);
     return status_code;
