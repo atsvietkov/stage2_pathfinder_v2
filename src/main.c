@@ -16,8 +16,8 @@ int main(int argc, char **argv) {
     int status_code = 0;
     unsigned int nodes_q_line = 0;
     char *file = mx_file_to_str(argv[1]);
-    char *nodes[256];
-    int line_counter = 0;
+    // char *nodes[256];
+    unsigned int line_counter = 0;
 
     status_code = mx_valid_argc(argc);
     if (status_code == 0) {
@@ -29,22 +29,22 @@ int main(int argc, char **argv) {
     if (status_code == 0) {
         nodes_q_line = mx_atoui(mx_parse(file, '\n'));
         if (nodes_q_line < 1) {
-            status_code = 0;
+            status_code = 4;
         }
     }
     char islands[nodes_q_line][ARRAY_WIDTH];
     int bridges[nodes_q_line][nodes_q_line];
     if (status_code == 0) {
-        unsigned int lines_in_file = mx_line_amount(file);
+        unsigned int lines_in_file = (unsigned int)mx_line_amount(file);
         // char islands[nodes_q_line][ARRAY_DEPTH];
         bool end_of_islands = 0;
-        unsigned int islands_line = 0;
+        int islands_line = 0;
         // unsigned int bridges[nodes_q_line][nodes_q_line];
     
         mx_memset(islands, '\0', sizeof(char)*nodes_q_line*ARRAY_WIDTH);
         // mx_memset(bridges, -1, sizeof(unsigned int)*nodes_q_line*nodes_q_line);
-        for (int i = 0; i < nodes_q_line; i++) {
-            for (int j = 0; j < nodes_q_line; j++) {
+        for (unsigned int i = 0; i < nodes_q_line; i++) {
+            for (unsigned int j = 0; j < nodes_q_line; j++) {
                 bridges[i][j] = 0;
             }
         }
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
             
             if(status_code == 0) {
                 island_exist = 0;
-                for (int i = 0; mx_strlen(islands[i]) > 0 && i < nodes_q_line; i++) {
+                for (unsigned int i = 0; mx_strlen(islands[i]) > 0 && i < nodes_q_line; i++) {
                     if(mx_strcmp(buf1, islands[i]) == 0) {
                         island_exist = 1;
                         break;
@@ -86,12 +86,12 @@ int main(int argc, char **argv) {
                     }
                     // mx_printstrn(islands[islands_line]);    // debug
                     islands_line++;
-                    if (islands_line == nodes_q_line) {
+                    if ((unsigned int)islands_line == nodes_q_line) {
                         end_of_islands = 1;
                     }
                 }
                 island_exist = 0;
-                for (int i = 0; mx_strlen(islands[i]) > 0 && i < nodes_q_line; i++) {
+                for (unsigned int i = 0; mx_strlen(islands[i]) > 0 && i < nodes_q_line; i++) {
                     if(mx_strcmp(buf2, islands[i]) == 0) {
                         island_exist = 1;
                         break;
@@ -106,20 +106,20 @@ int main(int argc, char **argv) {
                     }
                     // mx_printstrn(islands[islands_line]);    // debug
                     islands_line++;
-                    if (islands_line == nodes_q_line) {
+                    if ((unsigned int)islands_line == nodes_q_line) {
                         end_of_islands = 1;
                     }
                 }
             }
             sum_of_bridges += buf3;
             
-            unsigned int id_buf1 = 0;
-            unsigned int id_buf2 = 0;
-            for (int i = 0; islands[i][0] !=  '\0'; i++) {
+            int id_buf1 = 0;
+            int id_buf2 = 0;
+            for (int i = 0; islands[i][0] != '\0'; i++) {
                 if (mx_strcmp(buf1, islands[i]) == 0) {
                     id_buf1 = i;
                 }
-                else if (mx_strcmp(buf2, islands[i]) == 0) {
+                if (mx_strcmp(buf2, islands[i]) == 0) {
                     id_buf2 = i;
                 }
             }
@@ -133,6 +133,7 @@ int main(int argc, char **argv) {
             mx_strdel(&buf1);
             mx_strdel(&buf2);
         }
+        mx_strdel(&file_cpy);
 
         // for (int i = 0; i < nodes_q_line; i++) {
         //     for (int j = 0; j < nodes_q_line; j++) {
@@ -142,7 +143,7 @@ int main(int argc, char **argv) {
         //     mx_printchar(10);
         // }
 
-        if(status_code == 0 && islands_line < nodes_q_line) {
+        if(status_code == 0 && (unsigned int)islands_line < nodes_q_line) {
             status_code = 6;
         }
         else if (status_code == 0 && sum_of_bridges > INT_MAX) {

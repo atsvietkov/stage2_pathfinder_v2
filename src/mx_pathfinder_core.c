@@ -1,13 +1,13 @@
 #include "../inc/pathfinder.h"
 
-void mx_pathfinder_core(unsigned int size, 
+void mx_pathfinder_core(int size, 
                         int bridges[size][size], 
                         char islands[size][ARRAY_WIDTH], 
-                        unsigned int id_start, 
-                        unsigned int id_end) 
+                        int id_start, 
+                        int id_end) 
                         {
     
-    unsigned int num_of_bridges = 0;
+    int num_of_bridges = 0;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < i; j++) {
             if(bridges[i][j] > 0) {
@@ -18,8 +18,8 @@ void mx_pathfinder_core(unsigned int size,
 
     // mx_printintn(num_of_bridges);   // debug
     // mx_printintn((unsigned int)mx_pow(num_of_bridges, 2));
-    int route[(unsigned int)mx_pow(num_of_bridges, 2)][size];
-    for (int i = 0; i < (unsigned int)mx_pow(num_of_bridges, 2); i++) {
+    int route[(int)mx_pow(num_of_bridges, 2)][size];
+    for (int i = 0; i < (int)mx_pow(num_of_bridges, 2); i++) {
         for (int j = 0; j < size; j++) {
             route[i][j] = -1;
         }
@@ -49,7 +49,7 @@ void mx_pathfinder_core(unsigned int size,
     
     for (int step = 1; step < size; step++) {
         goodstep = FALSE;
-        for(unsigned int next_id = 0; next_id < size; next_id++) {
+        for(int next_id = 0; next_id < size; next_id++) {
             for(int backstep = 0; backstep <= step-1 && goodstep == FALSE; backstep++) {
                 checkleft = FALSE;
                 if(next_id == tmp_route[backstep]) {
@@ -64,7 +64,7 @@ void mx_pathfinder_core(unsigned int size,
             }
         }
     }
-    unsigned int row = 0;
+    int row = 0;
     bool plusone = FALSE;
     bool end = FALSE;
     if(mx_check_route(size, bridges, tmp_route, id_start, id_end) == TRUE) {
@@ -150,7 +150,7 @@ void mx_pathfinder_core(unsigned int size,
     unsigned int current_route = 0;
     for (unsigned int row = 0; route[row][0] != -1 ; row++) {
         current_route = 0;
-        for (unsigned int step = 0; step < size && route[row][step] != -1; step++) {
+        for (int step = 0; step < size && route[row][step+1] != -1; step++) {
             current_route += bridges[route[row][step]][route[row][step+1]];
         }
         if(current_route < shortest_route) {
@@ -159,7 +159,7 @@ void mx_pathfinder_core(unsigned int size,
     }
     for (unsigned int row = 0; route[row][0] != -1 ; row++) {
         current_route = 0;
-        for (unsigned int step = 0; step < size && route[row][step] != -1; step++) {
+        for (int step = 0; step < size && route[row][step+1] != -1; step++) {
             current_route += bridges[route[row][step]][route[row][step+1]];
         }
         if(current_route == shortest_route) {
@@ -184,10 +184,17 @@ void mx_pathfinder_core(unsigned int size,
             for (int i = 0; route[row][i] > -1 ; i++) {
                 mx_printint(bridges[route[row][i]][route[row][i+1]]);
                 if(route[row][i+1] == id_end) {
+                    if(i >= 1) {
+                        mx_printstr(" = ");
+                        mx_printint(shortest_route);
+                    }
                     break;
                 }
                 mx_printstr(" + ");
             }
+
+                // mx_printstr(" = ");
+                // mx_printint(shortest_route);
             mx_printchar(10);
             mx_print_boundary();
             

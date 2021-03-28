@@ -1,6 +1,6 @@
 #include "libmx.h"
 
-unsigned int mx_atoui(const char *str) {
+unsigned int mx_atoui(char *str) {
     unsigned int result = 0;
     if (!str) {
         return 0;
@@ -15,5 +15,6 @@ unsigned int mx_atoui(const char *str) {
             break;
         }
     }
+    mx_strdel(&str);
     return result;
 }

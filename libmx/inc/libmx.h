@@ -35,7 +35,7 @@ bool mx_char_in_str(char *s, char c);
 int mx_atoi(const char *str);
 bool mx_isdigit(int c);
 bool mx_isalpha(char c);
-unsigned int mx_atoui(const char *str);
+unsigned int mx_atoui(char *str);
 void mx_printint_err(int n);
 void mx_printchar_err(char c);
 

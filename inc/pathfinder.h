@@ -20,18 +20,14 @@ int mx_valid_line(const char *buffer1, const char *buffer2, unsigned int buffer3
 unsigned int mx_line_amount(char *file);
 
 void mx_print_boundary();
-void mx_pathfinder_core(unsigned int size, 
+void mx_pathfinder_core(int size, 
                         int bridges[size][size], 
                         char islands[size][ARRAY_WIDTH], 
-                        unsigned int id_start, 
-                        unsigned int id_end);
-unsigned int mx_connects(unsigned int size, 
-                         int bridges[size][size], 
-                         unsigned int id_now);
-bool mx_check_route(unsigned int size,
+                        int id_start, 
+                        int id_end);
+bool mx_check_route(int size,
                     int bridges[size][size],
                     int route[size],
-                    unsigned int id_start,
-                    unsigned int id_end);
+                    int id_start,
+                    int id_end);
 int mx_arrcmp(unsigned int size, int route1[size], int route2[size], unsigned int id_end);
-
