@@ -15,21 +15,38 @@ void mx_pathfinder_core(unsigned int size,
             }
         }
     }
-    int route[(unsigned int)mx_pow(num_of_bridges, num_of_bridges)][size];
-    for (int i = 0; i < (unsigned int)mx_pow(num_of_bridges, num_of_bridges); i++) {
+
+    mx_printintn(num_of_bridges);   // debug
+    mx_printintn((unsigned int)mx_pow(num_of_bridges, 2));
+    int route[(unsigned int)mx_pow(num_of_bridges, 2)][size];
+    for (int i = 0; i < (unsigned int)mx_pow(num_of_bridges, 2); i++) {
         for (int j = 0; j < size; j++) {
             route[i][j] = -1;
         }
     }
     int tmp_route[size];
+    mx_printchar('a');
     for (int i = 0; i < size; i++) {
         tmp_route[i] = -1;
     }
+    
     tmp_route[0] = id_start;
     bool goodstep = FALSE;
     bool checkleft = FALSE;
 
 
+    // debug
+    for (int i = 0; route[i][0] == id_start ; i++) {
+        mx_printint(i);
+        mx_printstr(" :\t");
+        for (int j = 0; j < size; j++) {
+            mx_printint(route[i][j]);
+            mx_printchar('\t');
+        }
+        mx_printchar(10);
+    }
+    // eof debug
+    
     for (int step = 1; step < size; step++) {
         goodstep = FALSE;
         for(unsigned int next_id = 0; next_id < size; next_id++) {
