@@ -16,8 +16,8 @@ void mx_pathfinder_core(unsigned int size,
         }
     }
 
-    mx_printintn(num_of_bridges);   // debug
-    mx_printintn((unsigned int)mx_pow(num_of_bridges, 2));
+    // mx_printintn(num_of_bridges);   // debug
+    // mx_printintn((unsigned int)mx_pow(num_of_bridges, 2));
     int route[(unsigned int)mx_pow(num_of_bridges, 2)][size];
     for (int i = 0; i < (unsigned int)mx_pow(num_of_bridges, 2); i++) {
         for (int j = 0; j < size; j++) {
@@ -25,7 +25,7 @@ void mx_pathfinder_core(unsigned int size,
         }
     }
     int tmp_route[size];
-    mx_printchar('a');
+    // mx_printchar('a');
     for (int i = 0; i < size; i++) {
         tmp_route[i] = -1;
     }
@@ -36,15 +36,15 @@ void mx_pathfinder_core(unsigned int size,
 
 
     // debug
-    for (int i = 0; route[i][0] == id_start ; i++) {
-        mx_printint(i);
-        mx_printstr(" :\t");
-        for (int j = 0; j < size; j++) {
-            mx_printint(route[i][j]);
-            mx_printchar('\t');
-        }
-        mx_printchar(10);
-    }
+    // for (int i = 0; route[i][0] == id_start ; i++) {
+    //     mx_printint(i);
+    //     mx_printstr(" :\t");
+    //     for (int j = 0; j < size; j++) {
+    //         mx_printint(route[i][j]);
+    //         mx_printchar('\t');
+    //     }
+    //     mx_printchar(10);
+    // }
     // eof debug
     
     for (int step = 1; step < size; step++) {
@@ -136,14 +136,62 @@ void mx_pathfinder_core(unsigned int size,
     // }
     // mx_printchar(10);
 
-    for (int i = 0; route[i][0] == id_start ; i++) {
-        mx_printint(i);
-        mx_printstr(" :\t");
-        for (int j = 0; j < size; j++) {
-            mx_printint(route[i][j]);
-            mx_printchar('\t');
+    // for (int i = 0; route[i][0] == id_start ; i++) {
+    //     mx_printint(i);
+    //     mx_printstr(" :\t");
+    //     for (int j = 0; j < size; j++) {
+    //         mx_printint(route[i][j]);
+    //         mx_printchar('\t');
+    //     }
+    //     mx_printchar(10);
+    // }
+
+    unsigned int shortest_route = UINT_MAX;
+    unsigned int current_route = 0;
+    for (unsigned int row = 0; route[row][0] != -1 ; row++) {
+        current_route = 0;
+        for (unsigned int step = 0; step < size && route[row][step] != -1; step++) {
+            current_route += bridges[route[row][step]][route[row][step+1]];
         }
-        mx_printchar(10);
+        if(current_route < shortest_route) {
+            shortest_route = current_route;
+        }
+    }
+    for (unsigned int row = 0; route[row][0] != -1 ; row++) {
+        current_route = 0;
+        for (unsigned int step = 0; step < size && route[row][step] != -1; step++) {
+            current_route += bridges[route[row][step]][route[row][step+1]];
+        }
+        if(current_route == shortest_route) {
+            mx_print_boundary();
+            mx_printstr("Path: ");
+            mx_printstr(islands[id_start]);
+            mx_printstr(" -> ");
+            mx_printstr(islands[id_end]);
+            mx_printchar(10);
+            mx_printstr("Route: ");
+            for (int i = 0; route[row][i] > -1 ; i++) {
+                mx_printstr(islands[route[row][i]]);
+                if(route[row][i] == id_end) {
+                    break;
+                }
+                mx_printstr(" -> ");
+            }
+            // mx_printstr(islands[id_end]);
+
+            mx_printchar(10);
+            mx_printstr("Distance: ");
+            for (int i = 0; route[row][i] > -1 ; i++) {
+                mx_printint(bridges[route[row][i]][route[row][i+1]]);
+                if(route[row][i+1] == id_end) {
+                    break;
+                }
+                mx_printstr(" + ");
+            }
+            mx_printchar(10);
+            mx_print_boundary();
+            
+        }
     }
 
 
