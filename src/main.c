@@ -134,13 +134,13 @@ int main(int argc, char **argv) {
             mx_strdel(&buf2);
         }
 
-        // for (int i = 0; i < nodes_q_line; i++) {
-        //     for (int j = 0; j < nodes_q_line; j++) {
-        //         mx_printint(bridges[i][j]);
-        //         mx_printchar('\t');
-        //     }
-        //     mx_printchar(10);
-        // }
+        for (int i = 0; i < nodes_q_line; i++) {
+            for (int j = 0; j < nodes_q_line; j++) {
+                mx_printint(bridges[i][j]);
+                mx_printchar('\t');
+            }
+            mx_printchar(10);
+        }
 
         if(status_code == 0 && islands_line < nodes_q_line) {
             status_code = 6;
@@ -154,7 +154,11 @@ int main(int argc, char **argv) {
     if (status_code == 0) {
         for (unsigned int start_id = 0; start_id < nodes_q_line - 1; start_id++) {
             for (unsigned int end_id = start_id + 1; end_id < nodes_q_line; end_id++) {
-                // mx_printstrn("Core");
+                mx_printstr("Core: ");
+                mx_printint(start_id);
+                mx_printchar(' ');
+                mx_printint(end_id);
+                mx_printchar(10);
                 mx_pathfinder_core(nodes_q_line, bridges, islands, start_id, end_id);
 
                 // mx_print_boundary();

@@ -28,4 +28,10 @@ void mx_pathfinder_core(unsigned int size,
 unsigned int mx_connects(unsigned int size, 
                          int bridges[size][size], 
                          unsigned int id_now);
+bool mx_check_route(unsigned int size,
+                    int bridges[size][size],
+                    int route[size],
+                    unsigned int id_start,
+                    unsigned int id_end);
+int mx_arrcmp(unsigned int size, int route1[size], int route2[size], unsigned int id_end);
 
